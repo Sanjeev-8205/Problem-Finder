@@ -1,0 +1,48 @@
+{
+  "cluster_id": 9,
+  "cluster_name": "Stability, Correctness, and Build Reliability across Hardware Backends",
+  "engineering_problem": "Inconsistent cross-platform behavior and runtime stability issues when deploying deep learning models across heterogeneous hardware accelerators and build environments.",
+  "problem_statement": "Developers face significant challenges ensuring functional correctness and system stability when moving models between CPU, GPU, and specialized accelerators, further compounded by brittle build systems that struggle with air-gapped or reproducible environment requirements.",
+  "summary": "This cluster highlights recurring failures in hardware-specific kernels (MPS, ROCm), silent correctness errors during compilation (Inductor), and build infrastructure fragility. Developers are plagued by inconsistent behavior between eager mode and compilation paths, and native library crashes that lack actionable feedback, hindering reliable production deployments.",
+  "problem_category": "Reliability",
+  "root_causes": [
+    "Hardware-specific kernel implementations failing to handle cross-precision or edge-case input dtypes",
+    "Compiler-level optimizations that omit or corrupt essential model metadata and tangent data",
+    "Fragile build processes that rely on non-vendored, externally downloaded dependencies",
+    "Lack of unified validation logic for sparse and compressed tensor structures",
+    "Incomplete abstraction layers for accelerator-agnostic memory management and diagnostics"
+  ],
+  "developer_symptoms": [
+    "Silent numerical corruption or garbled output when switching hardware backends",
+    "ASan/memory access crashes occurring deep within C++ native kernels",
+    "Build failures in restricted or air-gapped environments",
+    "Unexpected performance regressions or correctness errors after enabling model compilation",
+    "Inconsistent behavior between eager execution and compiler-fused operators"
+  ],
+  "affected_developers": [
+    "Machine Learning Engineers",
+    "AI Infrastructure/Platform Engineers",
+    "Build and Release Engineers",
+    "Performance Optimization Engineers"
+  ],
+  "evidence_titles": [
+    "[RT-DETRv2] MPS crash: build_2d_sinusoidal_position_embedding hardcodes torch.float64, breaking Apple Silicon / MPS inference",
+    "[MPS] LayerNorm with fp32 weight/bias and fp16/bf16 input reinterprets the affine params; backward aborts",
+    "Inductor: allgather fusion creates rank-specific cache that crashes when loaded by other ranks",
+    "FPE in torch.fmod with int32 minimum value and -1 divisor",
+    "Malformed sparse_csc_tensor / sparse_bsc_tensor can cause ASan crash in to_dense",
+    "Pytorch can't be built in an air-gapped environment"
+  ],
+  "severity": "Critical",
+  "difficulty_to_solve": "High",
+  "keywords": [
+    "cross-platform",
+    "kernel-stability",
+    "compiler-correctness",
+    "reproducible-builds",
+    "hardware-abstraction"
+  ],
+  "possible_solution": "Develop a unified, hardware-agnostic verification framework that runs automated constraint checks for tensors and kernels before execution, combined with a standardized artifact bundling system for dependencies to ensure reliable, air-gapped build reproducibility.",
+  "startup_opportunity_score": 8,
+  "startup_opportunity_reasoning": "The massive complexity of managing high-performance AI across disjointed hardware backends (MPS, AMD, Nvidia) creates a high demand for a cross-platform diagnostic layer that automates the verification of kernel-level correctness and build reproducibility."
+}

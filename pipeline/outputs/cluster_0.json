@@ -1,0 +1,50 @@
+{
+  "cluster_id": 0,
+  "cluster_name": "Docker Compose Orchestration and Operational UX Friction",
+  "engineering_problem": "Developers are experiencing significant operational and UX regressions within the Docker Compose orchestration lifecycle, specifically around command output consistency, inconsistent resource management (volumes/networks/hooks), and lack of native support for modern cloud-native configuration patterns.",
+  "problem_statement": "The Docker Compose CLI is becoming increasingly fragile, with frequent regressions in command output formatting, unexpected service recreation cycles, and limitations in declarative configuration that force developers to rely on brittle workarounds for standard operational requirements.",
+  "summary": "This cluster highlights a degradation in Docker Compose's developer experience, characterized by regression-prone TTY/progress output, inconsistencies in command-line flags, and missing features for complex deployment scenarios like secret resolution, OCI layout support, and declarative profile management.",
+  "problem_category": "Developer workflow",
+  "root_causes": [
+    "Recent architectural changes causing regressions in CLI output rendering (tty/progress bars)",
+    "Tight coupling between high-level orchestration abstractions and low-level daemon API versions",
+    "Limitations in the Compose YAML specification regarding complex lifecycle hooks and dependency management",
+    "Lack of native integrations for standard CI/CD and security tooling patterns (e.g., secret stores, release gating)",
+    "State reconciliation logic inconsistencies in newer versions affecting container recreation behavior"
+  ],
+  "developer_symptoms": [
+    "Frequent 'failed to get console' or 'unknown flag' errors when piping commands",
+    "Unexpected container recreation or drift during 'up' commands",
+    "Inability to automate secret management or air-gapped deployments natively",
+    "Increased cognitive load due to inconsistent flag naming (e.g., --no-tty vs --no-TTY)",
+    "Unnecessary terminal output cluttering logs and CI output"
+  ],
+  "affected_developers": [
+    "DevOps Engineers managing complex containerized stacks",
+    "Platform Engineers defining local development environments",
+    "Backend Developers utilizing compose for local testing",
+    "CI/CD Pipeline maintainers automating deployments"
+  ],
+  "evidence_titles": [
+    "[BUG] Docker compose up/pull does not pull images referenced in pre_start lifecycle hooks",
+    "[BUG] Compose won't find Dockerfile when in a symlinked folder",
+    "Add a minimum release age for mutable image tags using registry tag history",
+    "pre_start containers don't inherit/support extra_hosts",
+    "[BUG] TTY Progress No Longer Works",
+    "[BUG] [Regression] Can't pipe compose output with color",
+    "[BUG] network_mode: service always recreates the container since v5.2.0",
+    "[BUG] `docker compose run` always printing status of containers"
+  ],
+  "severity": "High",
+  "difficulty_to_solve": "High",
+  "keywords": [
+    "Docker-Compose",
+    "Developer-Experience",
+    "Orchestration-Regressions",
+    "CLI-Inconsistency",
+    "Operational-Workflows"
+  ],
+  "possible_solution": "Refactor the Compose CLI to use a robust, decoupled plugin-based architecture for status reporting and output rendering, implement a formal RFC process for adding cloud-native declarative features like secret resolution and OCI layout support, and enhance the integration testing suite to catch CLI regression bugs in various shell environments.",
+  "startup_opportunity_score": 7,
+  "startup_opportunity_reasoning": "There is a significant opportunity for a 'next-gen' orchestration wrapper or declarative tool that provides the simplicity of Compose but with a more stable, extensible, and predictable contract. Developers are frustrated with the instability of core tools; a professional-grade alternative focusing on CI/CD parity, security-first configuration, and platform-agnostic output would solve major pain points for enterprise teams."
+}

@@ -1,0 +1,44 @@
+{
+  "cluster_id": 4,
+  "cluster_name": "Widespread Test Flakiness and CI Instability in PyTorch",
+  "engineering_problem": "Systemic lack of test determinism and CI environmental volatility, leading to massive developer productivity loss and the normalization of 'flaky' test suppression.",
+  "problem_statement": "The project's continuous integration suite suffers from widespread, persistent flakiness across hardware backends (CUDA, ROCm, CPU) and core compiler components (Inductor, Dynamo). This forces developers to rely on a 'disable-and-forget' workflow for failing tests, which obscures regressions, increases technical debt, and degrades confidence in the verification pipeline.",
+  "summary": "Developers are trapped in a cycle of CI instability where tests intermittently fail due to non-deterministic compilation, environmental side effects, or resource contention. Rather than addressing the root cause, the common pattern is to disable these tests, resulting in a large backlog of disabled tests that are rarely prioritized for investigation or resolution.",
+  "problem_category": "Testing",
+  "root_causes": [
+    "Non-deterministic compilation paths in TorchInductor and Triton backends",
+    "Resource-related race conditions on shared CI runners (GPU memory, stream synchronization)",
+    "Environmental side effects impacting global state (e.g., file system, memory pools)",
+    "Fragile test expectations that are overly sensitive to minor compiler output variations"
+  ],
+  "developer_symptoms": [
+    "Sudden build failures in PRs caused by unrelated flaky tests",
+    "High cognitive load when debugging tests that pass locally but fail in CI",
+    "Increased time-to-merge due to repeated retries or test disabling",
+    "Frustration with 'shielding' mechanisms that hide test failures from the main dashboard"
+  ],
+  "affected_developers": [
+    "PyTorch Core Engineers",
+    "Compiler and Infrastructure Engineers",
+    "AI/ML Researchers and Library Contributors"
+  ],
+  "evidence_titles": [
+    "DISABLED test_concurrent_compile_to_python_smoke",
+    "DISABLED test_disable_external_correlation",
+    "DISABLED test_custom_op_dce_dynamic_shapes_cuda",
+    "DISABLED test_cusparse_multiple_threads_same_device",
+    "DISABLED test_memory_snapshot"
+  ],
+  "severity": "Critical",
+  "difficulty_to_solve": "High",
+  "keywords": [
+    "flakiness",
+    "CI/CD",
+    "compilation-non-determinism",
+    "technical-debt",
+    "developer-productivity"
+  ],
+  "possible_solution": "Implement a centralized automated test triage and observability platform that categorizes failures by root cause (e.g., race, environment, compiler-mismatch), correlates failures across multiple runs to detect patterns, and mandates an expiration policy for disabled tests with automated notification triggers for owners.",
+  "startup_opportunity_score": 9,
+  "startup_opportunity_reasoning": "Large-scale engineering organizations are desperately seeking 'Flaky Test Management' tools that go beyond simple suppression. A tool that provides autonomous root-cause analysis for CI failures\u2014specifically identifying whether an issue is in the product code, the environment, or the test harness itself\u2014would save thousands of developer hours per month in organizations like PyTorch."
+}
