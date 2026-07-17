@@ -2,10 +2,10 @@ from pathlib import Path
 from tqdm import tqdm
 import json
 
-from github_client import github_client
-from repositories import TARGET_REPOS
+from pipeline.collectors.github.github_client import github_client
+from pipeline.collectors.github.repositories import TARGET_REPOS
 
-OUTPUT_DIR = Path("../../data/raw")
+OUTPUT_DIR = Path(__file__).resolve().parent.parent / "data" / "raw"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 OUTPUT_FILE = OUTPUT_DIR / "github_issues.jsonl"

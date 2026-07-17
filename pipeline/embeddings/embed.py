@@ -1,11 +1,13 @@
 from sentence_transformers import SentenceTransformer
 import json
 import numpy as np
-
+from pathlib import Path
 model = SentenceTransformer("BAAI/bge-base-en-v1.5")
 
 embedding_texts = []
-with open('C:\Users\skd92\Main Projects\Problem Finder\data\raw\github_issues.jsonl', 'r', encoding='utf-8') as f:
+
+path_1 = Path(__file__).resolve().parent / "data" / "raw" / "github_issues.jsonl"
+with open(path_1, 'r', encoding='utf-8') as f:
   for line in f:
     embedding_texts.append(json.loads(line)['embedding_text'])
 
@@ -17,7 +19,8 @@ embeddings = model.encode(
 
 np.save('embeddings.npy', embeddings)
 
-with open('C:\Users\skd92\Main Projects\Problem Finder\data\processed\github_issues.jsonl', "r", encoding="utf-8") as f:
+path_2 = Path(__file__).resolve().parent / "data" / "processed" / "github_issues.jsonl"
+with open(path_2, "r", encoding="utf-8") as f:
     issues = [json.loads(line) for line in f]
 
 metadata = []

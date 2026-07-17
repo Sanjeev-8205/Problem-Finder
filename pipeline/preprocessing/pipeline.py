@@ -1,13 +1,12 @@
 import json
 from pathlib import Path
 
-from clean import clean_text
-from normalize import normalize_text
-from deduplicate import compute_hash
+from pipeline.preprocessing.clean import clean_text
+from pipeline.preprocessing.normalize import normalize_text
+from pipeline.preprocessing.deduplicate import compute_hash
 
-
-INPUT = Path("C:/Users/skd92/Main Projects/Problem Finder/data/raw/github_issues.jsonl")
-OUTPUT = Path("C:/Users/skd92/Main Projects/Problem Finder/data/processed/github_issues.jsonl")
+INPUT = Path(__file__).resolve().parent / "data" / "raw" / "github_issues.jsonl"
+OUTPUT = Path(__file__).resolve().parent / "data" / "processed" / "github_issues.jsonl"
 
 seen = set()
 duplicate_count=0

@@ -7,9 +7,10 @@ from tqdm import tqdm
 import numpy as np
 import json
 import time
+from pathlib import Path
 
-from schema_ import ClusteringAnalysis
-from prompt_ import system_prompt, build_prompt
+from pipeline.llm.schema_ import ClusteringAnalysis
+from pipeline.llm.prompt_ import system_prompt, build_prompt
 
 load_dotenv()
 GEMINI_API_KEY = os.getenv('gemini_api')
@@ -35,6 +36,8 @@ def generate_with_gemini(system_prompt, user_prompt):
 def generate_analysis(issues):
     cluster_map=defaultdict(list)
     store_cluster_analysis=[]
+
+    output_path = Path(__file__).resolve().parent / "outputs"
     
     for issue in issues:
         cluster_map[issue['cluster']].append(issue)
@@ -99,13 +102,13 @@ def generate_analysis(issues):
         store_cluster_analysis.append(result)
         print("Result loaded and stored")
 
-        with open(f"C:/Users/skd92/Main Projects/Problem Finder/outputs/cluster_{cluster_id}.json", 'w', encoding='utf-8') as f:
+        with open(f"{output_path}/cluster_{cluster_id}.json", 'w', encoding='utf-8') as f:
             json.dump(result, f, indent=2, ensure_ascii=True)
             print("JSON File Created")
     
-    with open(f"C:/Users/skd92/Main Projects/Problem Finder/outputs/all_outputs.json", 'w', encoding='utf-8') as f:
+    with open(f"{output_path}/problem_database.json", 'w', encoding='utf-8') as f:
         json.dump(store_cluster_analysis, f, indent=2, ensure_ascii=True)
-        print("FInal JSON file created.")
+        print("Final JSON file created.")
 
     print()
     return
