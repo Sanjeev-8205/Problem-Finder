@@ -10,10 +10,12 @@ import FilterBar from "@/components/filters/FilterBar";
 import DashboardCharts from "@/components/dashboard/DashboardCharts";
 
 function Home() {
-    const problems = getProblems();
+    const database = getProblems();
+    const problems = database.clusters;
+    const metadata = database.metadata;
     const [selectedCluster, setSelectedCluster] = useState<Problem | null>(null);
     const [searchQuery, setSearchQuery] = useState("");
-    const categories = ["All", ...new Set(problems.map((problem) => problem.problem_category)),];
+    const categories = ["All", ...new Set(problems.map((problem) => problem.primary_category)),];
     const [selectedCategory, setSelectedCategory] = useState("All");
     const [sortBy, setSortBy] = useState("default");
 
@@ -34,15 +36,15 @@ function Home() {
 
     const matchesSearch =
       problem.cluster_name.toLowerCase().includes(query) ||
-      problem.summary.toLowerCase().includes(query) ||
-      problem.problem_category.toLowerCase().includes(query) ||
+      problem.recurring_problem.toLowerCase().includes(query) ||
+      problem.primary_category.toLowerCase().includes(query) ||
       problem.keywords.some((keyword) =>
         keyword.toLowerCase().includes(query)
       );
 
     const matchesCategory =
       selectedCategory === "All" ||
-      problem.problem_category === selectedCategory;
+      problem.primary_category === selectedCategory;
 
     return matchesSearch && matchesCategory;
   });
@@ -54,8 +56,8 @@ function Home() {
 
       case "severity":
         return (
-          (severityRank[b.severity] ?? 0) -
-          (severityRank[a.severity] ?? 0)
+          (severityRank[b.pain_severity_score] ?? 0) -
+          (severityRank[a.pain_severity_score] ?? 0)
         );
 
       case "difficulty":
@@ -73,7 +75,10 @@ function Home() {
     <>
       <Navbar />
       <Hero />
-      <StatsPanel />
+      <StatsPanel
+        metadata={metadata}
+        problems={problems}
+      />
 
       <section className="mx-auto max-w-7xl px-6 py-12">
         <DashboardCharts problems={problems} />

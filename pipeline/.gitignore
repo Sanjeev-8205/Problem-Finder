@@ -1,9 +1,0 @@
-#VS code
-.vscode
-__pycache__
-
-#env vars
-.env
-
-#outputs
-/outputs

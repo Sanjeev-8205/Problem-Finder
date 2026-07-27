@@ -6,6 +6,7 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
+  CartesianGrid,
 } from "recharts";
 
 type OpportunityChartProps = {
@@ -37,22 +38,50 @@ function OpportunityChart({ problems }: OpportunityChartProps) {
   ];
 
   return (
-    <div className="h-80 w-full rounded-xl border p-6">
-      <h2 className="mb-6 text-lg font-semibold">
-        Startup Opportunity Distribution
-      </h2>
+    <div className="h-80 w-full rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-sm">
+      <div className="mb-6">
+        <h2 className="text-lg font-semibold">
+          Startup Opportunity Distribution
+        </h2>
+
+        <p className="text-sm text-muted-foreground">
+          Number of problems grouped by startup opportunity score.
+        </p>
+      </div>
 
       <ResponsiveContainer width="100%" height="85%">
         <BarChart data={opportunityData}>
-          <XAxis dataKey="range" />
+          <XAxis
+            dataKey="range"
+            tickLine={false}
+            axisLine={false}
+          />
 
-          <YAxis allowDecimals={false} />
+          <YAxis
+            allowDecimals={false}
+            tickLine={false}
+            axisLine={false}
+          />
 
-          <Tooltip />
+          <CartesianGrid
+              vertical={false}
+              strokeDasharray="3 3"
+          />
+
+          <Tooltip
+            cursor={{ fill: "rgba(148,163,184,0.08)" }}
+            contentStyle={{
+              background: "#0f172a",
+              border: "1px solid #334155",
+              borderRadius: "12px",
+            }}
+            labelStyle={{ color: "#e2e8f0" }}
+          />
 
           <Bar
             dataKey="count"
-            radius={[6, 6, 0, 0]}
+            radius={[8,8,0,0]}
+            animationDuration={700}
           />
         </BarChart>
       </ResponsiveContainer>

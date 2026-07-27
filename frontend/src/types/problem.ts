@@ -1,33 +1,53 @@
-export interface Problem {
-  cluster_id: number;
+export type Metadata = {
+  source: string;
+  generated_at: string;
 
+  documents_analyzed: number;
+
+  communities_analyzed: number;
+  communities: string[];
+
+  clusters_found: number;
+};
+
+export type Problem = {
+  cluster_id: number;
   cluster_name: string;
 
-  engineering_problem: string;
+  recurring_problem: string;
+  workflow: string;
+  root_cause: string;
 
-  problem_statement: string;
-
-  summary: string;
-
-  problem_category: string;
-
-  root_causes: string[];
-
-  developer_symptoms: string[];
-
-  affected_developers: string[];
-
+  evidence_patterns: string[];
   evidence_titles: string[];
 
-  severity: string;
+  repositories_affected: number;
 
+  affected_developers: string[];
+  developer_symptoms: string[];
+
+  primary_category: string;
+  secondary_category: string;
+
+  project_scope: string;
   difficulty_to_solve: string;
 
-  keywords: string[];
-
-  possible_solution: string;
-
+  pain_severity_score: number;
+  frequency_score: number;
+  willingness_to_pay_score: number;
+  competition_score: number;
   startup_opportunity_score: number;
 
   startup_opportunity_reasoning: string;
-}
+
+  existing_alternatives: string[];
+
+  possible_solution: string;
+
+  keywords: string[];
+};
+
+export type ProblemDatabase = {
+  metadata: Metadata;
+  clusters: Problem[];
+};

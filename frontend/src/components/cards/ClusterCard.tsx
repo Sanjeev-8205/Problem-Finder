@@ -2,7 +2,6 @@ import type { Problem } from "@/types/problem";
 import {
   Rocket,
   ArrowRight,
-  AlertTriangle,
 } from "lucide-react";
 
 type ClusterCardProps = {
@@ -17,9 +16,15 @@ function ClusterCard({ cluster, onClick }: ClusterCardProps) {
 
         <div>
 
-          <span className="rounded-full bg-blue-500/10 px-3 py-1 text-xs font-medium text-blue-400">
-            {cluster.problem_category}
-          </span>
+          <div className="flex flex-wrap gap-2">
+            <span className="rounded-full bg-blue-500/10 px-3 py-1 text-xs text-blue-400">
+              {cluster.primary_category}
+            </span>
+
+            <span className="rounded-full bg-slate-800 px-3 py-1 text-xs text-slate-300">
+              {cluster.secondary_category}
+            </span>
+          </div>
 
           <h2 className="mt-4 text-xl leading-snug font-bold sm:text-2xl">
             {cluster.cluster_name}
@@ -28,19 +33,26 @@ function ClusterCard({ cluster, onClick }: ClusterCardProps) {
         </div>
 
         <div className="flex shrink-0 flex-col items-center rounded-lg bg-slate-800 px-3 py-2">
-          <Rocket className="size-4 text-blue-400" />
 
-          <span className="mt-1 text-sm font-semibold">
+          <Rocket
+            aria-hidden="true"
+            className="size-4 text-blue-400"
+          />
+
+          <span className="mt-1 text-lg font-bold">
             {cluster.startup_opportunity_score}
           </span>
+
+          <span className="text-[10px] uppercase tracking-wide text-slate-400">
+            Score
+          </span>
+
         </div>
 
       </div>
 
       <p className="mt-6 line-clamp-3 leading-7 text-slate-400">
-
-        {cluster.summary}
-
+        {cluster.recurring_problem}
       </p>
 
       <div className="mt-6 flex flex-wrap gap-2">
@@ -63,21 +75,31 @@ function ClusterCard({ cluster, onClick }: ClusterCardProps) {
 
       <div className="mt-auto flex items-center justify-between gap-4 pt-8">
 
-        <div className="flex items-center gap-1.5 text-sm text-red-400">
-          <AlertTriangle className="size-4" />
+        <div className="flex flex-wrap gap-2">
 
-          <span>
-            {cluster.severity} Severity
+          <span className="rounded-full border border-slate-700 px-3 py-1 text-xs">
+            Severity {cluster.pain_severity_score}/10
           </span>
+
+          <span className="rounded-full border border-slate-700 px-3 py-1 text-xs">
+            {cluster.difficulty_to_solve}
+          </span>
+
         </div>
 
         <button
           onClick={onClick}
-          className="flex items-center gap-1.5 font-medium text-blue-400 transition-colors hover:text-blue-300"
+          aria-label={`Explore ${cluster.cluster_name}`}
+          className="flex items-center gap-1.5 font-medium text-blue-400 transition-colors hover:text-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-slate-900"
+          focus:outline-none
+          focus:ring-2
+          focus:ring-blue-500
+          focus:ring-offset-2
+          focus:ring-offset-slate-900
         >
           Explore
 
-          <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
+          <ArrowRight aria-hidden="true" className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
         </button>
 
       </div>
