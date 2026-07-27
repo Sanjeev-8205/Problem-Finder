@@ -1,5 +1,6 @@
 import StatsCard from "./StatsCard";
 import type { Metadata, Problem } from "@/types/problem";
+import type { Accent } from "./StatsCard";
 import {
   Brain,
   FileText,
@@ -17,30 +18,40 @@ function StatsPanel({ metadata, problems }: StatsPanelProps) {
     (problem) => problem.startup_opportunity_score >= 7
   ).length;
 
-  const stats = [
+  const stats: Array<{
+    title: string;
+    value: string;
+    subtitle: string;
+    icon: typeof FileText;
+    accent: Accent;
+  }> = [
     {
       title: "Documents Analyzed",
       value: metadata.documents_analyzed.toLocaleString(),
       subtitle: "Knowledge sources processed",
       icon: FileText,
+      accent: "blue",
     },
     {
       title: "Problems Identified",
       value: metadata.clusters_found.toString(),
       subtitle: "Unique engineering pain points",
       icon: Brain,
+      accent: "cyan",
     },
     {
       title: "Communities",
       value: metadata.communities_analyzed.toString(),
       subtitle: "Developer communities explored",
       icon: Globe,
+      accent: "purple",
     },
     {
       title: "Startup Opportunities",
       value: startupOpportunities.toString(),
       subtitle: "Opportunity score ≥ 7",
       icon: Rocket,
+      accent: "emerald",
     },
   ];
 
@@ -54,6 +65,7 @@ function StatsPanel({ metadata, problems }: StatsPanelProps) {
             value={stat.value}
             subtitle={stat.subtitle}
             icon={stat.icon}
+            accent={stat.accent}
           />
         ))}
       </div>
