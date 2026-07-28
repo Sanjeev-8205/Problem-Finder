@@ -33,372 +33,568 @@ function ClusterModal({
 }: ClusterModalProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[90vh] w-[calc(100%-2rem)] overflow-y-auto sm:max-w-4xl">
+      <DialogContent
+        className="
+          max-h-[90vh]
+          w-[calc(100%-2rem)]
+          overflow-y-auto
+          rounded-3xl
+          border
+          border-slate-800
+          bg-[#0f172a]/95
+          p-0
+          backdrop-blur-xl
+          shadow-2xl
+          shadow-black/50
+          sm:max-w-5xl
+          scrollbar-thin
+          scrollbar-track-transparent
+          scrollbar-thumb-slate-700
+          hover:scrollbar-thumb-slate-600
+        "
+      >
 
-        <DialogHeader className="sticky top-0 z-10 -mx-6 border-b bg-background px-6 pb-4 pt-2">
-
-          <DialogDescription className="text-xs font-semibold uppercase tracking-wider text-blue-400">
+        <DialogHeader
+          className="
+            sticky
+            top-0
+            z-30
+            border-b
+            border-slate-800
+            bg-slate-900/60
+            px-6
+            pt-6
+            pb-5
+            backdrop-blur-xl
+            border-t-2
+          border-t-cyan-400
+          "
+          style={{
+            borderTop: "2px solid transparent",
+            borderImage: "linear-gradient(90deg,#22d3ee,#3b82f6,#8b5cf6) 1",
+          }}
+        >
+          <DialogDescription
+            className="
+              text-xs
+              font-semibold
+              uppercase
+              tracking-[0.25em]
+              text-cyan-400
+            "
+          >
             {cluster.primary_category}
           </DialogDescription>
 
-          <DialogTitle className="max-w-3xl text-2xl leading-tight font-bold">
+          <DialogTitle
+            className="
+              max-w-4xl
+              text-3xl
+              font-bold
+              leading-tight
+              tracking-tight
+              text-white
+            "
+          >
             {cluster.cluster_name}
           </DialogTitle>
 
         </DialogHeader>
 
-        <div className="space-y-10">
+        <div className="p-6">
+          <div className="space-y-10">
 
-          {/* Metadata */}
-          <div className="flex flex-wrap gap-3">
+            {/* Metadata */}
+            <div className="flex flex-wrap gap-3 ">
 
-            <Badge variant="outline" className="gap-2">
-              <AlertTriangle
-                aria-hidden="true"
-                className="size-3.5"
-              />
-              Severity {cluster.pain_severity_score}/10
-            </Badge>
+              <Badge className="
+              gap-2
+              rounded-xl
+              border-slate-700
+              bg-slate-900/60
+              px-3
+              py-1.5
+              ">
+                <AlertTriangle
+                  aria-hidden="true"
+                  className="size-3.5"
+                />
+                Severity {cluster.pain_severity_score}/10
+              </Badge>
 
-            <Badge variant="outline" className="gap-2">
-              <Gauge
-                aria-hidden="true"
-                className="size-3.5"
-              />
-              {cluster.difficulty_to_solve}
-            </Badge>
+              <Badge className="
+              gap-2
+              rounded-xl
+              border-slate-700
+              bg-slate-900/60
+              px-3
+              py-1.5
+              ">
+                <Gauge
+                  aria-hidden="true"
+                  className="size-3.5"
+                />
+                {cluster.difficulty_to_solve}
+              </Badge>
 
-            <Badge variant="outline" className="gap-2">
-              <Rocket
-                aria-hidden="true"
-                className="size-3.5"
-              />
-              {cluster.project_scope}
-            </Badge>
+              <Badge className="
+              gap-2
+              rounded-xl
+              border-slate-700
+              bg-slate-900/60
+              px-3
+              py-1.5
+              ">
+                <Rocket
+                  aria-hidden="true"
+                  className="size-3.5"
+                />
+                {cluster.project_scope}
+              </Badge>
 
-            <Badge variant="outline" className="gap-2">
-              Startup Score
-              <span className="font-semibold">
-                {cluster.startup_opportunity_score}/10
-              </span>
-            </Badge>
+              <Badge className="
+              gap-2
+              rounded-xl
+              border-slate-700
+              bg-slate-900/60
+              px-3
+              py-1.5
+              ">
+                Startup Score
+                <span className="font-semibold">
+                  {cluster.startup_opportunity_score}/10
+                </span>
+              </Badge>
 
-          </div>
+            </div>
 
-          <div className="border-t" />
+            <div className="border-t" />
 
-          {/* Engineering Problem */}
-          <section>
-            <h3 className="mb-2 text-lg font-semibold">
-              Recurring Problem
-            </h3>
+            {/* Engineering Problem */}
+            <section className="
+            rounded-2xl
+            border
+            border-slate-800
+            bg-slate-800/35
+            shadow-lg
+            shadow-black/20
+            p-6
+            ">
+              <h3 className="mb-2 text-xl font-semibold tracking-tight text-slate-200">
+                Recurring Problem
+              </h3>
 
-            <p className="leading-7 text-muted-foreground">
-              {cluster.recurring_problem}
-            </p>
-          </section>
+              <p className="leading-relaxed text-slate-200">
+                {cluster.recurring_problem}
+              </p>
+            </section>
 
-          {/* Workflow */}
-          <section className="space-y-3">
+            {/* Workflow */}
+            <section className="
+            rounded-2xl
+            border
+            border-slate-800
+            bg-slate-800/35
+            shadow-lg
+            shadow-black/20
+            p-6
+            ">
 
-            <h3 className="text-lg font-semibold">
-              Workflow
-            </h3>
+              <h3 className="text-lg font-semibold">
+                Workflow
+              </h3>
 
-            <p className="leading-7 text-muted-foreground">
-              {cluster.workflow}
-            </p>
+              <p className="leading-relaxed text-slate-200">
+                {cluster.workflow}
+              </p>
 
-          </section>
+            </section>
 
-          {/* Root Cause */}
-          <section className="space-y-3">
+            {/* Root Cause */}
+            <section className="
+            rounded-2xl
+            border
+            border-slate-800
+            bg-slate-800/35
+            shadow-lg
+            shadow-black/20
+            p-6
+            ">
 
-            <h3 className="text-lg font-semibold">
-              Root Cause
-            </h3>
+              <h3 className="text-lg font-semibold">
+                Root Cause
+              </h3>
 
-            <p className="leading-7 text-muted-foreground">
-              {cluster.root_cause}
-            </p>
+              <p className="leading-7 text-muted-foreground">
+                {cluster.root_cause}
+              </p>
 
-          </section>
+            </section>
 
-          {/* Developer Perspective */}
-          <section className="space-y-5">
+            {/* Developer Perspective */}
+            <section className="space-y-5">
 
-            <h3 className="text-lg font-semibold">
-              Developer Perspective
-            </h3>
+              <h3 className="text-lg
+              font-semibold
+              text-slate-100">
+                Developer Perspective
+              </h3>
 
-            <div className="grid gap-4 lg:grid-cols-2">
+              <div className="grid gap-4 lg:grid-cols-2">
 
-              {/* Symptoms */}
+                {/* Symptoms */}
 
-              <div className="rounded-xl border p-5">
+                <div className="border p-6 rounded-2xl
+                border-slate-800
+                bg-slate-800/35
+                shadow-lg
+                shadow-black/20">
 
-                <h4 className="mb-4 font-semibold">
-                  Developer Symptoms
-                </h4>
-
-                <ul className="space-y-3">
-                  {cluster.developer_symptoms.map((symptom) => (
-                    <li
-                      key={symptom}
-                      className="flex gap-3 text-sm leading-6 text-muted-foreground"
-                    >
-                      <span
-                        aria-hidden="true"
-                        className="mt-2 size-1.5 shrink-0 rounded-full bg-foreground/50"
-                      />
-
-                      <span>{symptom}</span>
-
-                    </li>
-                  ))}
-                </ul>
-
-              </div>
-
-              {/* Affected Developers */}
-
-              <div className="rounded-xl border p-5">
-
-                <div className="mb-4 flex items-center gap-2">
-
-                  <Users
-                    aria-hidden="true"
-                    className="size-5"
-                  />
-
-                  <h4 className="font-semibold">
-                    Who Is Affected?
+                  <h4 className="text-lg font-semibold text-slate-100">
+                    Developer Symptoms
                   </h4>
+
+                  <ul className="space-y-3">
+                    {cluster.developer_symptoms.map((symptom) => (
+                      <li
+                        key={symptom}
+                        className="flex gap-3 text-sm leading-6 text-muted-foreground"
+                      >
+                        <span
+                          aria-hidden="true"
+                          className="mt-2 size-1.5 shrink-0 rounded-full bg-foreground/50"
+                        />
+
+                        <span>{symptom}</span>
+
+                      </li>
+                    ))}
+                  </ul>
 
                 </div>
 
-                <ul className="space-y-3">
+                {/* Affected Developers */}
 
-                  {cluster.affected_developers.map((developer) => (
-                    <li
-                      key={developer}
-                      className="flex gap-3 text-sm leading-6 text-muted-foreground"
-                    >
-                      <span
-                        aria-hidden="true"
-                        className="mt-2 size-1.5 shrink-0 rounded-full bg-foreground/50"
-                      />
+                <div className="border p-6 rounded-2xl
+                border-slate-800
+                bg-slate-800/35
+                shadow-lg
+                shadow-black/20">
 
-                      <span>{developer}</span>
+                  <div className="mb-4 flex items-center gap-2">
 
-                    </li>
-                  ))}
-
-                </ul>
-
-              </div>
-
-            </div>
-
-          </section>
-
-          {/* Evidence */}
-          <section className="space-y-5">
-
-            <div className="flex items-center gap-3">
-
-              <FaGithub
-                aria-hidden="true"
-                className="size-5"
-              />
-
-              <div>
-
-                <h3 className="text-lg font-semibold">
-                  Evidence from GitHub
-                </h3>
-
-                <p className="text-sm text-muted-foreground">
-                  Representative issue titles that support this recurring engineering problem.
-                </p>
-
-              </div>
-
-            </div>
-
-            <div className="space-y-3">
-
-              {cluster.evidence_titles.map((title) => (
-
-                <div
-                  key={title}
-                  className="rounded-lg border p-4 transition-colors hover:bg-muted/40"
-                >
-
-                  <div className="flex gap-3">
-
-                    <FaGithub
+                    <Users
                       aria-hidden="true"
-                      className="mt-1 size-4 shrink-0 text-muted-foreground"
+                      className="size-5"
                     />
 
-                    <p className="text-sm leading-6">
-                      {title}
-                    </p>
+                    <h4 className="text-lg
+                    font-semibold
+                    text-slate-100">
+                      Who Is Affected?
+                    </h4>
 
                   </div>
 
-                </div>
+                  <ul className="space-y-3">
 
-              ))}
+                    {cluster.affected_developers.map((developer) => (
+                      <li
+                        key={developer}
+                        className="flex gap-3 text-sm leading-6 text-muted-foreground"
+                      >
+                        <span
+                          aria-hidden="true"
+                          className="mt-2 size-1.5 shrink-0 rounded-full bg-foreground/50"
+                        />
 
-            </div>
+                        <span>{developer}</span>
 
-          </section>
+                      </li>
+                    ))}
 
-          {/* Opportunity Analysis */}
-          <section className="rounded-xl border p-6">
+                  </ul>
 
-            <div className="mb-6 flex items-center justify-between">
-
-              <div>
-
-                <h3 className="text-lg font-semibold">
-                  Opportunity Analysis
-                </h3>
-
-                <p className="text-sm text-muted-foreground">
-                  Evaluation generated from recurring community pain.
-                </p>
-
-              </div>
-
-              <div className="text-right">
-
-                <div className="text-3xl font-bold">
-                  {cluster.startup_opportunity_score}/10
-                </div>
-
-                <div className="text-xs uppercase tracking-wide text-muted-foreground">
-                  Startup Score
                 </div>
 
               </div>
 
-            </div>
+            </section>
 
-            <div className="grid gap-3 sm:grid-cols-2">
+            {/* Evidence */}
+            <section className="space-y-5">
 
-              <Badge variant="secondary">
-                Pain Severity: {cluster.pain_severity_score}/10
-              </Badge>
+              <div className="flex items-center gap-3">
 
-              <Badge variant="secondary">
-                Frequency: {cluster.frequency_score}/10
-              </Badge>
-
-              <Badge variant="secondary">
-                Willingness to Pay: {cluster.willingness_to_pay_score}/10
-              </Badge>
-
-              <Badge variant="secondary">
-                Competition: {cluster.competition_score}/10
-              </Badge>
-
-            </div>
-
-            <div className="mt-6">
-
-              <h4 className="mb-2 font-semibold">
-                Why?
-              </h4>
-
-              <p className="leading-7 text-muted-foreground">
-                {cluster.startup_opportunity_reasoning}
-              </p>
-
-            </div>
-
-          </section>
-
-          {/* Existing Alternatives */}
-          <section className="space-y-4">
-
-            <h3 className="text-lg font-semibold">
-              Existing Alternatives
-            </h3>
-
-            <div className="flex flex-wrap gap-2">
-
-              {cluster.existing_alternatives.map((alternative) => (
-
-                <Badge
-                  key={alternative}
-                  variant="outline"
-                >
-                  {alternative}
-                </Badge>
-
-              ))}
-
-            </div>
-
-          </section>
-
-          {/* Possible Solution */}
-          <section className="rounded-xl border bg-muted/40 p-6">
-
-            <div className="flex gap-4">
-
-              <div className="flex size-10 shrink-0 items-center justify-center rounded-lg border bg-background">
-
-                <Lightbulb
+                <FaGithub
                   aria-hidden="true"
                   className="size-5"
                 />
 
+                <div>
+
+                  <h3 className="text-lg font-semibold text-white">
+                    Evidence from GitHub
+                  </h3>
+
+                  <p className="text-sm text-slate-200">
+                    Representative issue titles that support this recurring engineering problem.
+                  </p>
+
+                </div>
+
               </div>
 
-              <div>
+              <div className="space-y-3">
 
-                <h3 className="mb-2 text-lg font-semibold">
-                  Proposed Solution
-                </h3>
+                {cluster.evidence_titles.map((title) => (
 
-                <p className="leading-7 text-muted-foreground">
-                  {cluster.possible_solution}
+                  <div
+                    key={title}
+                    className="rounded-xl
+                    border
+                    border-slate-700
+                    bg-slate-800/20
+                    px-5
+                    py-4
+                    transition-all
+                    duration-200
+                    hover:bg-slate-800/50
+                    hover:border-cyan-500/30
+                    hover:-translate-y-0.5"
+                  >
+
+                    <div className="flex gap-3">
+
+                      <FaGithub
+                        aria-hidden="true"
+                        className="mt-1 size-4 shrink-0 text-muted-foreground"
+                      />
+
+                      <p className="text-sm leading-6">
+                        {title}
+                      </p>
+
+                    </div>
+
+                  </div>
+
+                ))}
+
+              </div>
+
+            </section>
+
+            {/* Opportunity Analysis */}
+            <section
+              className="
+                relative
+                rounded-3xl
+                border
+                border-slate-800
+                overflow-hidden
+                bg-linear-to-br
+                from-slate-800/55
+                via-slate-900/60
+                to-slate-950/70
+                shadow-xl
+                shadow-cyan-950/10
+                p-6
+              "
+            >
+              <div
+                className="
+                  absolute
+                  top-0
+                  left-0
+                  right-0
+                  h-0.5
+                  bg-linear-to-r
+                  from-cyan-400
+                  via-blue-500
+                  to-violet-500
+                "
+              />
+
+              <div className="mb-6 flex items-center justify-between">
+
+                <div>
+
+                  <h3 className="text-lg font-semibold text-white">
+                    Opportunity Analysis
+                  </h3>
+
+                  <p className="text-sm text-slate-200">
+                    Evaluation generated from recurring community pain.
+                  </p>
+
+                </div>
+
+                <div className="text-center rounded-2xl
+                border
+                border-cyan-500/20
+                bg-cyan-500/5
+                px-6
+                py-5
+                min-w-170px">
+
+                  <div className="text-3xl font-bold">
+                    {cluster.startup_opportunity_score}/10
+                  </div>
+
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground">
+                    Startup Score
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div className="grid gap-3 sm:grid-cols-2">
+
+                <div className="rounded-xl border border-slate-700 bg-slate-900/40 p-4">
+                  <p className="text-xs uppercase tracking-wide text-slate-400">Pain Severity</p>
+                  <p className="text-2xl font-bold text-white">{cluster.pain_severity_score}/10</p>
+                </div>
+
+                <div className="rounded-xl border border-slate-700 bg-slate-900/40 p-4">
+                  <p className="text-xs uppercase tracking-wide text-slate-400">Frequency</p>
+                  <p className="text-2xl font-bold text-white">{cluster.frequency_score}/10</p>
+                </div>
+
+                <div className="rounded-xl border border-slate-700 bg-slate-900/40 p-4">
+                  <p className="text-xs uppercase tracking-wide text-slate-400">Willingness to Pay</p>
+                  <p className="text-2xl font-bold text-white">{cluster.willingness_to_pay_score}/10</p>
+                </div>
+
+                <div className="rounded-xl border border-slate-700 bg-slate-900/40 p-4">
+                  <p className="text-xs uppercase tracking-wide text-slate-400">Competition</p>
+                  <p className="text-2xl font-bold text-white">{cluster.competition_score}/10</p>
+                </div>
+
+              </div>
+
+              <div className="my-8 border-t border-slate-700/60" />
+
+              <div className="mt-6">
+
+                <h4 className="mb-2 font-semibold">
+                  Why this opportunity exists?
+                </h4>
+
+                <p className="text-muted-foreground leading-8
+                text-slate-200
+                max-w-5xl">
+                  {cluster.startup_opportunity_reasoning}
                 </p>
 
               </div>
 
-            </div>
+            </section>
 
-          </section>
+            {/* Existing Alternatives */}
+            <section className="space-y-4">
 
-          {/* Keywords */}
-          <section className="space-y-4">
+              <h3 className="text-lg font-semibold text-white">
+                Existing Alternatives
+              </h3>
 
-            <h3 className="text-lg font-semibold">
-              Search Keywords
-            </h3>
+              <div className="flex flex-wrap gap-2">
 
-            <div className="flex flex-wrap gap-2">
+                {cluster.existing_alternatives.map((alternative) => (
 
-              {cluster.keywords.map((keyword) => (
+                  <div className="rounded-full
+                  border-slate-700
+                  bg-slate-800/40
+                  px-4
+                  py-2
+                  text-slate-200
+                  transition-all
+                  hover:border-cyan-500/30
+                  hover:bg-slate-800/60
+                  duration-300
+                  hover:-translate-y-0.5
+                  hover:shadow-xl"
+                  >
+                    {alternative}
+                  </div>
 
-                <Badge
-                  key={keyword}
-                  variant="secondary"
-                >
-                  {keyword}
-                </Badge>
+                ))}
 
-              ))}
+              </div>
 
-            </div>
+            </section>
 
-          </section>
+            {/* Possible Solution */}
+            <section className="rounded-3xl p-6
+              border
+              border-cyan-500/20
+              bg-cyan-500/10
+              text-cyan-300
+              hover:bg-cyan-500/15
+              transition-all
+              duration-300
+              hover:-translate-y-0.5
+              hover:shadow-xl">
 
+              <div className="flex gap-4">
+
+                <div className="flex size-10 shrink-0 items-center justify-center rounded-lg border bg-background">
+
+                  <Lightbulb
+                    aria-hidden="true"
+                    className="size-5"
+                  />
+
+                </div>
+
+                <div>
+
+                  <h3 className="text-lg font-semibold text-white">
+                    Proposed Solution
+                  </h3>
+
+                  <p className="leading-7 text-slate-200">
+                    {cluster.possible_solution}
+                  </p>
+
+                </div>
+
+              </div>
+
+            </section>
+
+            {/* Keywords */}
+            <section className="space-y-4">
+
+              <h3 className="text-lg font-semibold text-white">
+                Search Keywords
+              </h3>
+
+              <div className="flex flex-wrap gap-2">
+
+                {cluster.keywords.map((keyword) => (
+
+                  <div className="rounded-full p-1.5
+                    border
+                    border-cyan-500/20
+                    bg-cyan-500/10
+                    hover:bg-cyan-500/15
+                    transition-all
+                    duration-300
+                    hover:-translate-y-0.5
+                    hover:shadow-xl
+                    text-slate-200">
+                    {keyword}
+                  </div>
+
+                ))}
+
+              </div>
+
+            </section>
+
+          </div>
         </div>
 
       </DialogContent>
