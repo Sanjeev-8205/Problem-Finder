@@ -37,6 +37,7 @@ function FilterBar({
       <SearchBar
         value={searchQuery}
         onChange={onSearchChange}
+        aria-label="Search Engineering Problems"
       />
 
       <Select
@@ -57,7 +58,8 @@ function FilterBar({
         focus:ring-4
         focus:ring-blue-500/10
         md:w-56
-        ">
+        "
+        aria-label="Select Category">
           <SelectValue placeholder="Category" />
         </SelectTrigger>
 

@@ -21,6 +21,7 @@ function SearchBar({ value, onChange }: SearchBarProps) {
           duration-200
           group-focus-within:text-blue-400
         "
+        aria-label="Search Engineering Problems"
       />
 
       <input
