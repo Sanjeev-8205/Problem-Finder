@@ -13,7 +13,7 @@ function Navbar() {
   };
   
   return (
-    <nav className="w-full border-b border-slate-800 bg-slate-950">
+    <nav className="sticky top-0 z-50 w-full border-b border-slate-800 bg-slate-950">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
         <Link
           to="/"
