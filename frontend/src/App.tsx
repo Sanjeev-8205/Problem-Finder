@@ -4,25 +4,32 @@ import {
   Route,
 } from "react-router-dom";
 
-import Home from "@/pages/Home";
-import Methodology from "@/pages/Methodology";
+import { lazy, Suspense } from "react";
+
 import ScrollToHash from "./components/routing/ScrollToHash";
+import ScrollToTop from "./components/routing/ScrollToTop";
+
+const Home = lazy(() => import("./pages/Home"));
+const Methodology = lazy(() => import("./pages/Methodology"));
 
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <ScrollToHash />
-      <Routes>
-        <Route
-          path="/"
-          element={<Home />}
-        />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route
+            path="/"
+            element={<Home />}
+          />
 
-        <Route
-          path="/methodology"
-          element={<Methodology />}
-        />
-      </Routes>
+          <Route
+            path="/methodology"
+            element={<Methodology />}
+          />
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   );
 }
