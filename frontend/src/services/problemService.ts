@@ -1,7 +1,11 @@
-import database from "@/data/discussions_problem_database_20260727_191948.json";
-
 import type { ProblemDatabase } from "@/types/problem";
 
-export function getProblems(): ProblemDatabase {
-  return database as ProblemDatabase;
+export async function getProblems(): Promise<ProblemDatabase> {
+  const response = await fetch("/discussions_problem_database.json");
+
+  if (!response.ok) {
+    throw new Error("Failed to load problem database");
+  }
+
+  return response.json();
 }
