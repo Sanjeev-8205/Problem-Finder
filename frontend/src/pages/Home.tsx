@@ -4,20 +4,42 @@ import StatsPanel from "@/components/dashboard/StatsPanel";
 import type { Problem } from "@/types/problem";
 import { getProblems } from "@/services/problemService";
 import ClusterModal from "@/components/cards/ClusterModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ClusterGrid from "@/components/cards/ClusterGrid";
 import FilterBar from "@/components/filters/FilterBar";
-import DashboardCharts from "@/components/dashboard/DashboardCharts";
+import type { ProblemDatabase } from "@/types/problem";
+
+import { lazy, Suspense } from "react";
+
+const DashboardCharts = lazy(
+  () => import("@/components/dashboard/DashboardCharts")
+);
+
 
 function Home() {
-    const database = getProblems();
-    const problems = database.clusters;
-    const metadata = database.metadata;
+    const [database, setDatabase] = useState<ProblemDatabase | null>(null);
     const [selectedCluster, setSelectedCluster] = useState<Problem | null>(null);
     const [searchQuery, setSearchQuery] = useState("");
-    const categories = ["All", ...new Set(problems.map((problem) => problem.primary_category)),];
     const [selectedCategory, setSelectedCategory] = useState("All");
     const [sortBy, setSortBy] = useState("default");
+    useEffect(() => {
+        getProblems()
+            .then(setDatabase)
+            .catch(console.error);
+    }, []);
+
+  if (!database) {
+        return (
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-slate-400 text-lg">Loading Problem Finder...</div>
+        </div>
+        );
+    }
+
+    const problems = database.clusters;
+    const metadata = database.metadata;
+
+    const categories = ["All", ...new Set(problems.map((problem) => problem.primary_category)),];
 
     const severityRank: Record<string, number> = {
       High: 3,
@@ -81,7 +103,9 @@ function Home() {
       />
 
       <section className="mx-auto max-w-7xl px-6 py-12">
-        <DashboardCharts problems={problems} />
+        <Suspense fallback={<div className="h-80 animate-pulse rounded-xl bg-slate-900/50" />}>
+          <DashboardCharts problems={problems} />
+        </Suspense>
       </section>
       
       <section id="problems" className="scroll-mt-20 mx-auto max-w-7xl px-6 py-12">
