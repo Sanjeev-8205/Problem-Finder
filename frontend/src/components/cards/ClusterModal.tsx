@@ -15,7 +15,6 @@ import type { Problem } from "@/types/problem";
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
@@ -34,75 +33,87 @@ function ClusterModal({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
+  className="
+    w-[calc(100%-2rem)]
+    max-h-[90vh]
+    rounded-3xl
+    border
+    border-slate-800
+    bg-[#0f172a]/95
+    p-0
+    backdrop-blur-xl
+    shadow-2xl
+    shadow-black/50
+    sm:max-w-5xl
+    overflow-hidden
+  "
+>
+  <div
+    className="
+      max-h-[90vh]
+      overflow-y-auto
+
+      scrollbar-thin
+      scrollbar-track-transparent
+      scrollbar-thumb-slate-700
+      hover:scrollbar-thumb-slate-600
+    "
+  >
+    <div
+      className="
+        sticky
+        top-0
+        z-30
+
+        border-b
+        border-slate-800
+
+        bg-[#0f172a]/95
+        backdrop-blur-xl
+
+        px-6
+        pt-6
+        pb-6
+        pr-20
+
+        border-t-2
+        border-t-cyan-400
+      "
+      style={{
+        borderTop: "2px solid transparent",
+        borderImage:
+          "linear-gradient(90deg,#22d3ee,#3b82f6,#8b5cf6) 1",
+      }}
+    >
+      <DialogDescription
         className="
-          max-h-[90vh]
-          w-[calc(100%-2rem)]
-          overflow-y-auto
-          rounded-3xl
-          border
-          border-slate-800
-          bg-[#0f172a]/95
-          p-0
-          backdrop-blur-xl
-          shadow-2xl
-          shadow-black/50
-          sm:max-w-5xl
-          scrollbar-thin
-          scrollbar-track-transparent
-          scrollbar-thumb-slate-700
-          hover:scrollbar-thumb-slate-600
+          text-xs
+          font-semibold
+          uppercase
+          tracking-[0.25em]
+          text-cyan-400
         "
       >
+        {cluster.primary_category}
+      </DialogDescription>
 
-        <DialogHeader
-          className="
-            sticky
-            top-0
-            z-30
-            border-b
-            border-slate-800
-            bg-slate-900/60
-            px-6
-            pt-6
-            pb-5
-            backdrop-blur-xl
-            border-t-2
-          border-t-cyan-400
-          "
-          style={{
-            borderTop: "2px solid transparent",
-            borderImage: "linear-gradient(90deg,#22d3ee,#3b82f6,#8b5cf6) 1",
-          }}
-        >
-          <DialogDescription
-            className="
-              text-xs
-              font-semibold
-              uppercase
-              tracking-[0.25em]
-              text-cyan-400
-            "
-          >
-            {cluster.primary_category}
-          </DialogDescription>
+      <DialogTitle
+        className="
+          mt-3
+          max-w-4xl
+          text-3xl
+          font-bold
+          leading-tight
+          tracking-tight
+          text-white
+        "
+      >
+        {cluster.cluster_name}
+      </DialogTitle>
+    </div>
 
-          <DialogTitle
-            className="
-              max-w-4xl
-              text-3xl
-              font-bold
-              leading-tight
-              tracking-tight
-              text-white
-            "
-          >
-            {cluster.cluster_name}
-          </DialogTitle>
-
-        </DialogHeader>
-
-        <div className="p-6">
-          <div className="space-y-10">
+    <div className="p-6">
+      <div className="space-y-10">
 
             {/* Metadata */}
             <div className="flex flex-wrap gap-3 ">
@@ -594,9 +605,9 @@ function ClusterModal({
 
             </section>
 
+               </div>
           </div>
         </div>
-
       </DialogContent>
     </Dialog>
   );
